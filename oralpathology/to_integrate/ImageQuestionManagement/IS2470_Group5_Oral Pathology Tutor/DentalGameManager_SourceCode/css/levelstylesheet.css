@@ -1,0 +1,174 @@
+/* Browser compatibility to calculate widths and heights from default CSS */
+{
+  	-webkit-box-sizing: border-box;
+  	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	}
+
+/* Major sections */
+body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  	margin-top: 5px;
+ 	margin-bottom: 5px;
+   	} 	
+
+/* Headings */
+h1 {
+	size: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align:center;
+	}
+
+h2 {
+	color: black;
+	size: 50%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	}
+		
+h3 {
+	size: 75%;
+	color: black;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	text-align: center;
+	}
+	
+h4 {
+	line-height: 15px;	
+	color: black;
+	text-align: center;
+	}
+	
+h5 {
+	line-height: 15px;
+	margin-top: 15px;
+	color: black;
+	text-align: center;
+	}
+		
+p {
+	color: black;
+	margin-bottom: 15px;
+	}
+
+.counter{
+	position: relative;
+	text-align:center;
+	font-size: 20px;
+	}
+	
+.hint{
+	text-align:center;
+	}
+
+.center {
+	text-align: center;
+	}	
+
+/* Image Generator */	
+#imageStrip {
+	width: 75%;
+	margin: 0 auto;
+	}
+	
+.imageContainer{
+	position: relative;
+	float: left;
+	padding-right: 15px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 15px;
+	}
+	
+.imageSelector{
+	position: relative;
+	border: 1px #000000 solid;
+	background-color: #ffffff;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	}
+	
+.imageViewer{
+	position: relative;
+	border: 1px #000000 solid;
+	background-color: #ffffff;
+	border-radius: 5px;
+	padding: 5px;
+	}
+	
+#responseFeedback{
+	position: relative;
+	padding: 20px;
+	border: 1px solid #000000;
+	border-radius: 10px;
+	width: 200px;
+	position: absolute;
+	display: none;
+	background-color: #000000;
+	color: #ffffff;
+	font-weight: normal;	
+	}
+	
+.distractorContainer{
+	position: relative;
+	border: 1px #000000 solid;
+	background-color: #ffffff;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 10px;
+	width: 150px;
+	clear:both;
+	}
+	
+#btnTable{
+	border: 2px; 
+	cell spacing: 2px;
+	cell padding: 5px; 
+	}
+
+.overlay {
+    visibility: hidden;
+	position: absolute;
+    left: 0px;
+    top: 0px;
+    width:100%;
+    height:100%;
+    text-align:center;
+    z-index: 10000;
+	}
+
+form {
+	width: 250px;
+	margin: 0 auto;
+	}
+
+.scroll {
+    width: 90%; 
+    height: 415px;
+    margin: 0 auto;
+    overflow: auto; 
+    background: #BAE1F7;
+    border: 1px solid #000;
+    border-radius: 15px;
+	}
+
+.innerscroll {
+    float:left;
+    margin-right:-25000px;/*Be safe with Opera's limited negative margin of 32695px (-999em could cause problems with large font sizes)*/
+    padding-left:15px;
+	}
+	
+.termlist {
+	width: 90%;
+	margin: 0 auto;
+	overflow: auto;
+	padding-left: 15px;
+	}
+	
+#scoreDisplay{
+	padding-left: 20px;
+}

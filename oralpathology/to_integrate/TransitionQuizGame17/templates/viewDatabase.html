@@ -1,0 +1,102 @@
+{% extends "_base.html" %}
+{% block bodycontent %}
+
+<link rel="stylesheet" type="text/css" href="../static/css/dataTables.bootstrap.min.css">
+<script type="text/javascript" src="../static/js/datatables.min.js"></script>
+<script>
+	$(document).ready(function() {
+        var table = $('#accepted').DataTable({responsive:true});
+				var table2 = $('#submitted').DataTable({responsive:true});
+
+				if(window.location.pathname+window.location.search == "/ReviewMyQuestions")
+        {
+					document.getElementById("pageTitle").innerHTML = "Your Questions";
+				}
+} );
+</script>
+
+<br/><br/><br/><br/>
+<div class="container" style="text-align: center;">
+    <h2 id="pageTitle" style="display:inline;">Question Database</h2>
+		<p style="font-size:0.9em;margin-top:10px;">Use the search bar to find specific Questions / Categories / Subcategories.</p>
+    <hr>
+</div>
+<div class="container">
+	<table id="accepted" class="table table-bordered table-hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+          <th>Question</th>
+					<th>Category</th>
+					<th>Subcategory</th>
+				</tr>
+			</thead>
+
+			<tfoot>
+				<tr>
+          <th>Question</th>
+					<th>Category</th>
+					<th>Subcategory</th>
+				</tr>
+			</tfoot>
+
+			<tbody>
+
+			{% for question_obj in review %}
+					<tr.table-hover>
+						<th><a href="/ReviewQuestion?id={{question_obj.urlkey}}">{{question_obj.question}}</a></th>
+
+						<script>
+						document.write("<th>");
+						document.write("{{question_obj.categoryText}}".split(':')[0]);
+						document.write("</th>");
+						document.write("<th>");
+						document.write("{{question_obj.categoryText}}".split(':')[1]);
+						document.write("</th>");
+						</script>
+					</tr>
+			{% endfor %}
+			</tbody>
+	</table>
+
+	{% if submitted %}
+	<br>
+	<h2 style="text-align: center;"> Submitted Questions </h2>
+	<hr>
+	<table id="submitted" class="table table-bordered table-hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+          <th>Question</th>
+					<th>Category</th>
+					<th>Subcategory</th>
+				</tr>
+			</thead>
+
+			<tfoot>
+				<tr>
+          <th>Question</th>
+					<th>Category</th>
+					<th>Subcategory</th>
+				</tr>
+			</tfoot>
+
+			<tbody>
+
+			{% for question_obj in submitted %}
+					<tr.table-hover>
+						<th><a href="/ReviewQuestion?id={{question_obj.urlkey}}">{{question_obj.question}}</a></th>
+
+						<script>
+						document.write("<th>");
+						document.write("{{question_obj.categoryText}}".split(':')[0]);
+						document.write("</th>");
+						document.write("<th>");
+						document.write("{{question_obj.categoryText}}".split(':')[1]);
+						document.write("</th>");
+						</script>
+					</tr>
+			{% endfor %}
+			</tbody>
+	</table>
+	{% endif %}
+</div>
+{% endblock %}

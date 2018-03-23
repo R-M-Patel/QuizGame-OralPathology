@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 2, 2017, 5:26:14 PM
+    Author     : LJR
+*/
+
+.addquestion_btn {
+    background-color: #2da4ff;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    clear: both;
+    color: white;
+    font-family: Arial;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+}

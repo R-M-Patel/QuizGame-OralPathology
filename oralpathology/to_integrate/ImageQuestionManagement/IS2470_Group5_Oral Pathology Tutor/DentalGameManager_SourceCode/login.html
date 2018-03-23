@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Login</title>
+        <link href="css/loginstyle.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-push-4">
+                    <form class="form-signin" action="index.php" method="post">
+                        <h2 class="form-signin-heading">Welcome<br/><small>Please sign in</small></h2>
+                        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+                        <br>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="userType" value="Student" checked>Student
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="userType" value="Admin">Admin
+                            </label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+                    <br>
+                    <form class="form-signin" action="findpswd.html">
+                        <button class="btn btn-lg btn-default btn-block" type="submit">Forget your password?</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

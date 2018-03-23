@@ -1,0 +1,353 @@
+{% extends "_base.html" %}
+{% block bodycontent %}
+<html>
+<head>
+    <title>Add a Question</title>
+</head>
+<body>
+{% if user_email %}
+    <br><br><br><br>
+    <div class = "container">
+        <h2 style="text-align: center;">New Question Submission</h2>
+        <hr>
+        <form action="{{upload_urlQ}}" enctype="multipart/form-data" method="post"><font size = 5>
+
+            <div class='col-md-6'>
+              <span class="cat">Select A Category:&nbsp;</span>
+              <select class="cat" name="category" id="catdropdown" method="POST" required>
+              </select>
+
+            </div>
+            <div class='col-md-6'>
+              <span class="cat">Select A Subcategory:&nbsp;</span>
+              <select class="cat" name="subcategory"  id="subdropdown" method="POST" required>
+              </select>
+            </div>
+
+            <div class="col-xs-12" style="text-align:center;">
+<!--               if admin
+-->                <a class="btn btn-primary" style="margin-top: 15px;" href="#submitcat" data-toggle="modal">Submit Category / Subcategory</a>
+<!--               else
+                <a class="btn btn-success" style="margin: 15px;" href="#submitcat" data-toggle="modal">Suggest a Category / Subcategory</a>
+               endif
+-->            </div>
+            <hr>
+            <div class="col-xs-12" >
+                <textarea type="text" name="questiontext" placeholder="Enter question here..."class="form-control" rows="6" METHOD=POST maxlength="144" id="questionText"required></textarea><br/>
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <input type="textarea" class="red-text" style="width: 100%;" placeholder="Answer #1" method=POST name="answer1" maxlength="30" id="answer1" required></input>
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <input type="textarea" class="blue-text" style="width: 100%;" placeholder="Answer #2" method=POST name="answer2" maxlength="30" id="answer2" required></input>
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <input type="textarea" class="green-text" style="width: 100%;" placeholder="Answer #3" method=POST name="answer3" maxlength="30" id="answer3" required></input>
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <input type="textarea" class="yellow-text" style="width: 100%;" placeholder="Answer #4" method=POST name="answer4" maxlength="30" id="answer4" required></input>
+            </div>
+            </div>
+            <div class="container">
+                <hr>
+            Import Image:
+            <input type="file" class="form-control upload-file" name="file" id="Location"></input><br/>
+                Explanation:
+                <textarea type="text" name="explanation" class="form-control" rows="5" maxlength="750"></textarea>
+                <hr>
+                Select the correct answer:<br/><br/>
+                <div class="col-sm-3">
+                    <button type="submit" style="width:100%; height: 100px; border-radius: 15px;" name="answerid" value=1 class="btn btn-danger submit-a-button" id="select1">1</button><br/><br/>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" style="width:100%; height: 100px; border-radius: 15px;" name="answerid" value=2 class="btn btn-info submit-a-button" id="select2">2</button><br/><br/>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" style="width:100%; height: 100px; border-radius: 15px;" name="answerid" value=3 class="btn btn-success submit-a-button" id="select3">3</button><br/><br/>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" style="width:100%; height: 100px; border-radius: 15px;" name="answerid" value=4 class="btn btn-warning submit-a-button" id="select4">4</button><br/><br/>
+                </div>
+        </form>
+    </div>
+    <br/>
+    <!--Suggest category Modal-->
+    <div style="z-index:2147483646;" class="modal fade" id="submitcat" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+        <div class="modal-header">
+<!--             if admin
+-->              <he5>Category Creation</he5>
+<!--             else
+              <he5>Category Suggestion</he5>
+             endif
+-->        </div>
+        <div class="modal-body">
+            Main Category:<br><br>
+            <div style="text-align:center;">
+            <select class="mainCat" name="newCatDropdown" id="newcatdropdown" method="POST" required>
+                <option value='cat'>New Main Category</option>
+            </select>
+          </div>
+            <input class="form-control" id="category" maxlength="30" type="text" required></input>
+            <br>
+            Subcategory:<br><br>
+            <input class="form-control" id="subcategory" maxlength="30" type="text" required></input>
+            <br>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default text-right" data-dismiss="modal">Close</a>
+<!--             if admin
+-->              <button class="btn btn-primary" onclick="adminSendCategory()">Submit</button>
+<!--             else
+              <button class="btn btn-primary" onclick="sendCategory()">Submit</button>
+             endif
+-->        </div>
+			</div>
+		</div>
+	</div>
+
+  <!--Confirmation Modal-->
+  <div style="z-index:2147483646;" class="modal fade" id="confirm" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align:center">
+          <h1 style="display:inline">Question Submitted Successfully!</h1>
+        </div>
+        <div class="modal-body" style="text-align:center">
+<!--          <p>Questions must have a user rating of 5 or administrative permission to be active.</p>
+          <a class="btn btn-info" style="border-radius: 25px;" href="/ReviewNewQuestions" id=""><h2 class="link-button">Vote on Questions</h2></a><br/>
+-->     <p>Questions are automatically accepted for beta testers.  After PharmGenius is live, you will have to vote on questions before they become active.</p>
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <a class="btn btn-success" style="border-radius: 25px;" data-dismiss="modal" id="ok"><h2 class="link-button">Continue</h2></a><br/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+  <div class = "intro container">
+      <br><br><br>
+      <h1 style="position:absolute; top:50%; left:20%;">You Must Be Logged In to View This Page!</h1>
+  </div>
+{% endif %}
+</body>
+<script>
+    $(window).load(function() {
+        var curr = {{catList|safe}};
+        var option = $("#catdropdown");
+        var newoption = $("#newcatdropdown");
+        var suboption = $("#subdropdown");
+        var categoryList = document.getElementById("catdropdown");
+        var newCategoryList = document.getElementById("newcatdropdown");
+        var subcategoryList = document.getElementById("subdropdown");
+        var unique1 = [];
+        var unique2 = [];
+        var all=[[],[]];
+        $.each(curr, function(key, value) {
+            var split=(value.category.split(':'));
+            //all[0].concat(split[0]);
+            //all[1].concat(split[1]);
+            all[all.length]=split;
+            //all=all+split;
+            var cat = value.category.split(':')[0].trim();
+            var sub = value.category.split(':')[1].trim();
+            var Ivalue = "<option value='"+cat+"'>" + cat + "</option>";
+            var Svalue = "<option value='"+sub+"'>" + sub + "</option>";
+            if($.inArray(cat, unique1) === -1)
+            {
+              unique1.push(cat);
+              option.append(Ivalue);
+              newoption.append(Ivalue);
+            }
+            if (option.selectedIndex != -1){
+                if(categoryList.selectedOptions[0].value===cat){
+                    if($.inArray(sub, unique2) === -1){
+                        unique2.push(sub);
+                        suboption.append(Svalue);
+                    }
+                }
+            }
+        });
+
+        categoryList.addEventListener("change", function() {
+            var select;
+            var options = categoryList.options;
+            var selectedOpt = categoryList.selectedOptions;
+
+            //var count = options.length;
+            var length = subcategoryList.length;
+            var unique2 = [];
+            for (i = 0; i < length; i++) {
+                subcategoryList[i] = null;
+            }
+            subcategoryList.length=0;
+            if (options.selectedIndex != -1){
+                select=selectedOpt[0].value;
+                length = all.length;
+                for(i = 0; i < length; i++) {
+                   if(all[i][0]===select){
+                        if($.inArray(all[i][1], unique2) === -1){
+                            unique2.push(all[i][1]);
+                            suboption.append("<option value='"+all[i][1]+"'>" + all[i][1] + "</option>");
+                        }
+                    }
+                }
+            }
+        });
+
+        /*categoryList.onchange(function(){
+            var length = suboption.length;
+            //alert("hi");
+            var unique2 = [];
+            for (i = 0; i < length; i++) {
+                suboption[i] = null;
+            }
+            suboption.length=0;
+            if option.selectedIndex != -1{
+                select=option.selectedIndex.text;
+
+                var length = all.length;
+                for(i = 0; i < length; i++) {
+                    if(all[i]===select){
+                        if($.inArray(sub[i], unique2) === -1){
+                          unique2.push(sub);
+                          suboption.append(Svalue);
+                        }
+                    }
+                }
+            }
+        });*/
+
+        //code for adding a category dropdown
+        newCategoryList.addEventListener("change", function() {
+            var select;
+            var options = newCategoryList.options;
+            var selectedOpt = newCategoryList.selectedOptions;
+
+
+            if (options.selectedIndex != -1){
+                if(options.selectedIndex != 0){
+                    select=selectedOpt[0].value;
+                    document.getElementById('category').value=select;
+                    document.getElementById("category").style.visibility = "hidden";
+                }else{
+                    document.getElementById("category").style.visibility = "visible";
+                    document.getElementById('category').value="";
+                }
+            }
+        });
+        // If coming from the Quiz Me! button
+        if(window.location.pathname+window.location.search == "/NewQuestion")
+        {
+          // Display the confirmation pop-up
+          window.onload = $("#confirm").modal({ backdrop: 'static',keyboard: false });
+        }
+    });
+    //AJAX
+    function sendCategory(){
+        var cat = document.getElementById('category').value.trim();
+        var sub = document.getElementById('subcategory').value.trim();
+        cat = cat.replace(/:/g, '');
+        sub = sub.replace(/:/g, '');
+        cat=cat.charAt(0).toUpperCase()+cat.slice(1);
+        sub=sub.charAt(0).toUpperCase()+sub.slice(1);
+        var category = cat + ':' + sub;
+
+        if(cat !== null && cat.match(/^\s*$/) === null)
+        {
+          if(sub !== null && sub.match(/^\s*$/) === null)
+          {
+            //clear report question text box
+            document.getElementById('category').value= "";
+            document.getElementById('subcategory').value= "";
+            $.ajax({
+                type: "POST",
+                url: "/addCategory",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({"category": category}),
+                success : function(text){
+                    if (text.exists == true){
+                        alert("Category already exists.");
+                    }
+                    else{
+                        $('#submitcat').modal('hide');
+                        confirm("Category suggestion added.");
+                    }
+                  }
+              });
+          }
+          else {
+            alert("The subcategory is required!");
+          }
+        }
+        else {
+          alert("The main category is required!");
+        }
+    }
+
+    function adminSendCategory(){
+        var cat = document.getElementById('category').value.trim();
+        var sub = document.getElementById('subcategory').value.trim();
+        cat = cat.replace(/:/g, '');
+        sub = sub.replace(/:/g, '');
+        cat=cat.charAt(0).toUpperCase()+cat.slice(1);
+        sub=sub.charAt(0).toUpperCase()+sub.slice(1);
+        var category = cat + ':' + sub;
+
+        if(cat !== null && cat.match(/^\s*$/) === null)
+        {
+          if(sub !== null && sub.match(/^\s*$/) === null)
+          {
+            //clear report question text box
+            document.getElementById('category').value= "";
+            document.getElementById('subcategory').value= "";
+            $.ajax({
+                type: "POST",
+                url: "/adminAddCategory",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({"category": category}),
+                success : function(text){
+                    if (text.exists == true){
+                        alert("Category already exists.");
+                    }
+                    else{
+                        $('#submitcat').modal('hide');
+                        confirm("Category automatically added.");
+                        var option1 = document.createElement("option");
+                        var option2 = document.createElement("option");
+                        option1.text = cat;
+                        option2.text = sub;
+
+                        // Add the cat/sub to the list of all cat/subs
+                        all[all.length] = category.split(':');
+
+                        // If the main category is the selected category
+                        if($("#catdropdown option:selected").text() === cat)
+                          // Add the subcategory
+                          document.getElementById('subdropdown').add(option2);
+
+                        // If the main category isn't in the category dropdown
+                        else if($("#catdropdown option[value='"+ cat +"']").length == 0)
+                          // Add it
+                          document.getElementById('catdropdown').add(option1);
+                    }
+                  }
+              });
+          }
+          else {
+            alert("The subcategory is required!");
+          }
+        }
+        else {
+          alert("The main category is required!");
+        }
+        // Wait one second before refreshing the page
+        // NOTE: Allows ajax to be sent first
+        setTimeout(function(){window.location.replace("/submitNewQuestion");}, 1000);
+    }
+</script>
+</html>
+
+{% endblock %}

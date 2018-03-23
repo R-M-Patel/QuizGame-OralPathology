@@ -1,0 +1,16 @@
+.dataTable tr td{
+    padding: 5px;
+}
+.dataTable tr th{
+    padding: 5px;
+    background-color: #333333;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.dataTable tr:nth-child(even) {background: #CCC}
+
+.imgThumb{
+    max-height: 100;
+    max-width: 100;
+}
