@@ -19,21 +19,21 @@ class Question{
 		
 		//Constructs an SQL statement
         if($categories == ""){
-            $sql = "SELECT questionID, diagnosisName, hint, numberOfImages ";
-            $sql .= "FROM questions q ";
-            $sql .= "JOIN questions_levels ql ON q.questionID = ql.fk_questionID ";
+            $sql = "SELECT questionID, diagnosisName, hint, numberOfImages "; //select data
+            $sql .= "FROM questions q "; //from questions database
+            $sql .= "JOIN questions_levels ql ON q.questionID = ql.fk_questionID "; //join where IDs match
             $sql .= "WHERE levelID = " . $levelID . " ";
-            $sql .= "AND questionID NOT IN (SELECT questionID FROM used_question_log WHERE attemptID = '" . $attemptID . "' AND levelID = " . $levelID . ") ";
+            $sql .= "AND questionID NOT IN (SELECT questionID FROM used_question_log WHERE attemptID = '" . $attemptID . "' AND levelID = " . $levelID . ") "; //where question is not in used_question_log
             $sql .= "AND questionID IN (SELECT fk_questionID FROM questions_images) ";
-            $sql .= "ORDER BY RAND() LIMIT 1; ";
+            $sql .= "ORDER BY RAND() LIMIT 1; "; //limit it 1
         }
         else{
             // This is the practice mode!
-            $sql = "SELECT questionID, diagnosisName, hint, numberOfImages ";
-            $sql .= "FROM questions q ";
-            $sql .= "WHERE fk_categoryID IN (" . $categories . ") ";
-            $sql .= "AND questionID IN (SELECT fk_questionID FROM questions_images) ";
-            $sql .= "ORDER BY RAND() LIMIT 1; ";
+            $sql = "SELECT questionID, diagnosisName, hint, numberOfImages "; //select data
+            $sql .= "FROM questions q "; //from questions database
+            $sql .= "WHERE fk_categoryID IN (" . $categories . ") "; //where category id is in categories database
+            $sql .= "AND questionID IN (SELECT fk_questionID FROM questions_images) "; //where question id is from questions_images database
+            $sql .= "ORDER BY RAND() LIMIT 1; "; //limit to 1
         }
 
 		// echo $sql . "<br />";
@@ -49,8 +49,8 @@ class Question{
 		}
 		
 		//Creates a new sql dataset query for images
-		$sql = "SELECT fk_questionID, imageID, imageFolder, imageName FROM questions_images qi JOIN images i ON qi.fk_imageID = i.imageID ";
-		$sql .= "WHERE fk_questionID = '" . $this->questionID . "' ORDER BY RAND() LIMIT " . $maxCorrect . "; ";
+		$sql = "SELECT fk_questionID, imageID, imageFolder, imageName FROM questions_images qi JOIN images i ON qi.fk_imageID = i.imageID "; //select data
+		$sql .= "WHERE fk_questionID = '" . $this->questionID . "' ORDER BY RAND() LIMIT " . $maxCorrect . "; "; //where ID matches this question's ID, order randomly, limit by maximum number of questions correct
 		
 		// echo($sql . "<br />");
 		
@@ -89,39 +89,39 @@ class Question{
 		$sql .= "ORDER BY RAND() LIMIT " . $numOfDistractors . "; ";
 		*/
 		
-		$sql = "SELECT questionID, diagnosisName, hint, imageID, imageFolder, imageName ";
-		$sql .= "FROM distractors d JOIN questions q ON d.fk_distructorQuestionID = q.questionID ";
-		$sql .= "JOIN questions_images qi ON q.questionID = qi.fk_questionID  ";
+		$sql = "SELECT questionID, diagnosisName, hint, imageID, imageFolder, imageName "; //Select data
+		$sql .= "FROM distractors d JOIN questions q ON d.fk_distructorQuestionID = q.questionID "; //from distractions and questions databases
+		$sql .= "JOIN questions_images qi ON q.questionID = qi.fk_questionID  "; //where IDs match
 		$sql .= "JOIN images i ON qi.fk_imageID = i.imageID ";
 		$sql .= "WHERE fk_forQuestionID = '" . $questionID . "' ";
-		$sql .= "ORDER BY RAND() LIMIT " . $numOfDistractors . " ";
+		$sql .= "ORDER BY RAND() LIMIT " . $numOfDistractors . " "; //order randomly, limit by number of distractors
 
 		// echo $sql . "<br />";
 
 		$collectionList = $db->getDataset($sql);
 		// echo("Distractors: <br />");
 		foreach($collectionList as &$row){
-			$image = new Image($row["imageID"], $row["imageFolder"], $row["imageName"], false, $row["questionID"], $row["diagnosisName"], $row["hint"]);
-			array_push($this->imageList, $image);
+			$image = new Image($row["imageID"], $row["imageFolder"], $row["imageName"], false, $row["questionID"], $row["diagnosisName"], $row["hint"]); //create new image object based on retrieved data
+			array_push($this->imageList, $image); //add image to the image list
 			// echo($image->getImageID() . "<br />");
 		}
 		
 		$db->closeConnection();
 	}
 	
-	public function getQuestionID(){
+	public function getQuestionID(){ //get question ID
 		return $this->questionID;
 	}
 	
-	public function getImageList(){
+	public function getImageList(){ //get image list
 		return $this->imageList;
 	}
 	
-	public function getHint(){
+	public function getHint(){ //get hint
 		return $this->hint;
 	}
 	
-	public function getDiagnosisName(){
+	public function getDiagnosisName(){ //get diagnosis name
 		return $this->diagnosisName;
 	}
 	
