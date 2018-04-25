@@ -6,8 +6,8 @@ require("../classes/dbutils.php");
 $limit = $_POST["limit"];
 $firstWhere = 0;
 
-$sql = "SELECT questionID,imageID,categoryName,diagnosisName,hint,numberOfImages,imageFolder,imageName "; 
-$sql .= "FROM categories JOIN questions ON categoryID = fk_categoryID JOIN "; //pick from questions with matching categories
+$sql = "SELECT questionID,imageID,categoryName,diagnosisName,hint,numberOfImages,imageFolder,imageName ";  //select data
+$sql .= "FROM categories JOIN questions ON categoryID = fk_categoryID JOIN "; //pick from questions with matching categories IDs
 $sql .= "questions_images ON questions.questionID = fk_questionID JOIN images ";
 $sql .= "ON questions_images.fk_imageID = images.imageID WHERE categoryID = ";
 
