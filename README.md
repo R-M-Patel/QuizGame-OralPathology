@@ -18,6 +18,7 @@ Proposal .pdf </br>
 Capstone Project Group Propsal and User Stories Meeting </br>
 Midterm Update (1).pdf </br>
 Capstone Final Paper.pdf </br>
+Capstone Video - Quiz Game.mp4 (If watching on a computer screen, use medium. If Presenting to a projector, use large).
 </br>
 
 # Adrian's Documentation
